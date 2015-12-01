@@ -1,0 +1,15 @@
+- name: ensure zabbix-agent is at the latest version
+  yum: name=zabbix-agent state=latest
+  notify: restart zabbix-agent
+  when: ansible_os_family == "RedHat"
+
+- name: ensure zabbix-agent is at the latest version
+  apt: name=zabbix-agent state=latest
+  notify: restart zabbix-agent
+  when: ansible_os_family == "Debian"
+
+- name: ensure zabbix-agent is enabled and running
+  service: name=zabbix-agent state=started enabled=yes
+
+- name: copy test.txt to the /tmp of a remote host
+  template: src=test.txt dest=/tmp/test.txt owner=root group=root mode=0600
