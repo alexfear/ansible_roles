@@ -1,0 +1,15 @@
+---
+- name: Logging to the application...
+  uri:
+    url: https://webserver
+    force_basic_auth: true
+    user: "{{ web_user }}"
+    password: "{{ web_pass }}"
+    return_content: true
+    validate_certs: no
+    status_code: 200
+  register: output
+
+- debug:
+    var: output.content
+

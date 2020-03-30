@@ -1,0 +1,14 @@
+---
+- name: configure web server
+  hosts: webservers
+  become: true
+  roles:
+    - configure_web_server
+
+- name: test web server
+  hosts: localhost
+  become: no
+  vars_files: 
+    - test_web_server/vars/secrets.yml
+  roles:
+    - test_web_server
