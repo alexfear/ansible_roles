@@ -1,9 +1,15 @@
 - name: Adding user "{{ uuser }}" with admin access
-  user: name={{ uuser }} password={{ upass | password_hash('sha512') }} groups=sudo append=yes
+  user: 
+    name: "{{ uuser }}" 
+    password: "{{ upass | password_hash('sha512') }}"
+    groups: sudo
+    append: yes
   when: admin_user == "yes"
 
 - name: Adding user "{{ uuser }}" without admin access
-  user: name={{ uuser }} password={{ upass | password_hash('sha512') }}
+  user: 
+    name: "{{ uuser }}"
+    password: "{{ upass | password_hash('sha512') }}"
   when: admin_user == "no"
 
 - name: Removing expiration for user "{{ uuser }}"

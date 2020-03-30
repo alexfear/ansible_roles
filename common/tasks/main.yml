@@ -1,25 +1,25 @@
-#- name: ensure zabbix-agent is at the latest version (RedHat)
-#  yum: name=zabbix-agent state=latest
-#  notify: restart zabbix-agent
-#  when: ansible_os_family == "RedHat"
-
-#- name: ensure zabbix-agent is at the latest version (Debian)
-#  apt: name=zabbix-agent state=latest
-#  notify: restart zabbix-agent
-#  when: ansible_os_family == "Debian"
-
 - name: ensure zabbix-agent is enabled and running
-  service: name=zabbix-agent state=started enabled=yes
+  service: 
+    name: zabbix-agent
+    state: started
+    enabled: yes
 
 - name: ensure nginx is at the latest version (RedHat)
-  yum: name=nginx state=latest
+  yum: 
+    name: nginx
+    state: latest
   notify: restart nginx
   when: ansible_os_family == "RedHat"
 
 - name: ensure nginx is at the latest version (Debian)
-  apt: name=nginx state=latest
+  apt: 
+    name: nginx
+    state: latest
   notify: restart nginx
   when: ansible_os_family == "Debian"
 
 - name: ensure nginx is enabled and running
-  service: name=nginx state=started enabled=yes
+  service:
+    name: nginx
+    state: started
+    enabled: yes
