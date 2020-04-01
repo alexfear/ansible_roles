@@ -1,0 +1,30 @@
+---
+# tasks file for zabbix-agent
+- name: Installing the latest packages for redhat/centos
+  block:
+  - name: Adding Zabbix repo for redhat/centos
+    yum_repository:
+      name: 'zabbix'
+      description: 'Zabbix Repo'
+      baseurl: 'http://repo.zabbix.com/zabbix/4.4/rhel/6/$basearch/'
+      enabled: true
+      gpgcheck: false
+      state: present
+  - name: Installing zabbix-agent on redhat/centos
+    yum: 
+      name: zabbix-agent
+      state: latest
+  when: ansible_facts['distribution'] == 'CentOS' or ansible_facts['distribution'] == 'Red Hat Enterprise Linux'
+  
+- name: Installing the latest packages for ubuntu
+  block:
+  - name: Adding Zabbix repo for ubuntu
+    apt_repository:
+      repo: deb http://repo.zabbix.com/zabbix/4.4/ubuntu bionic main
+      state: present
+  - name: Installing zabbix-agent on ubuntu
+    apt:
+      name: zabbix-agent
+      state: latest
+  when: ansible_facts['distribution'] == 'Ubuntu'
+

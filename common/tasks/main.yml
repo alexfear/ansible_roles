@@ -1,25 +1,10 @@
-- name: ensure zabbix-agent is enabled and running
-  service: 
-    name: zabbix-agent
-    state: started
-    enabled: yes
-
-- name: ensure nginx is at the latest version (RedHat)
-  yum: 
-    name: nginx
-    state: latest
-  notify: restart nginx
-  when: ansible_os_family == "RedHat"
-
-- name: ensure nginx is at the latest version (Debian)
-  apt: 
-    name: nginx
-    state: latest
-  notify: restart nginx
-  when: ansible_os_family == "Debian"
-
-- name: ensure nginx is enabled and running
-  service:
-    name: nginx
-    state: started
-    enabled: yes
+---
+- name: Getting basic system info
+  debug:
+    msg: 
+      - "fqdn: {{ ansible_facts['fqdn'] }}"
+      - "hostname: {{ ansible_facts['hostname'] }}"
+      - "default ipv4: {{ ansible_facts['default_ipv4']['address'] }}"
+      - "cpus: {{ ansible_facts['processor_count'] }}"
+      - "memory: {{ ansible_facts['memtotal_mb'] }}"
+      - "distro: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}"
